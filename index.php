@@ -7,5 +7,3 @@ if(isset($_GET['rota'])){
     $controller = new Controller();
     $controller->verificarCaminho($_GET['rota']);
 } 
-
-var_dump($_GET);
