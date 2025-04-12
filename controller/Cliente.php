@@ -2,8 +2,11 @@
 
 namespace controller;
 
-class CadastrarController{
+class Cliente{
     public function cadastrar(){
         echo'cadastrado';
+    }
+    public function logar(){
+        echo'logado';
     }
 }
