@@ -25,16 +25,25 @@ class MysqlSingleton{
         return self::$instance;
     }
 
-    public function executar($query,$param = array()){
-        if($this->conexao){
+    public function executar($query, $param = array()) {
+        if ($this->conexao) {
             $sth = $this->conexao->prepare($query);
-            foreach($param as $k => $v){
-                $sth->bindValue($k,$v);
-               
+            foreach ($param as $k => $v) {
+                $sth->bindValue($k, $v);
             }
-            
-            $sth->execute();
-            return $sth->fetchAll(PDO::FETCH_ASSOC);
+    
+            $executou = $sth->execute();
+    
+            // Detecta se é SELECT ou outra operação
+            if (stripos(trim($query), 'select') === 0) {
+                return $sth->fetchAll(PDO::FETCH_ASSOC);
+            }
+    
+            // Para INSERT/UPDATE/DELETE, retorna true se executou com sucesso
+            return $executou;
         }
+    
+        return false;
     }
+    
 }
