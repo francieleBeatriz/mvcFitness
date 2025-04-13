@@ -7,7 +7,8 @@ class Controller{
     public function __construct()
     {
         $this->rotas = [
-            "Cadastrar" => new RouteAction("controller\CadastrarController", "cadastrar"),
+            "Cadastrar" => new RouteAction("controller\ClienteController", "cadastrar"),
+            "Logar" => new RouteAction("controller\ClienteController", "logar"),
         ];
     }
 
