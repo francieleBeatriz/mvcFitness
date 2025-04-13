@@ -3,20 +3,29 @@ namespace generic;
 
 class Controller{
     private $rotas = [];
-    
     public function __construct()
     {
         $this->rotas = [
-            "Cadastrar" => new RouteAction("controller\ClienteController", "cadastrar"),
-            "Logar" => new RouteAction("controller\ClienteController", "logar"),
+            "api/cliente/cadastrar" => new RouteAction("Cliente", "cadastrar"),
+            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar")
         ];
     }
 
     public function verificarCaminho($rota){
         if(isset($this->rotas[$rota])){
-            $this->rotas[$rota]->executar();
+            $acao = $this->rotas[$rota];
+            $acao->executar();
             return;
         }
-            echo 'Rota não existe!';
+
+        echo 'Rota não existe!';
+    }
+
+    public function addRota(
+        string $rota, 
+        RouteAction $metodo
+    ): void
+    {
+        $this->rotas[$rota] = $metodo;
     }
 }
