@@ -19,7 +19,5 @@ class Cliente{
 
         $service = new ClienteService();
         $service->atualizarDados($id,$nome,$email);
-
-        echo"Usuário atualizado com sucesso!";
     }
 }
