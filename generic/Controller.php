@@ -6,8 +6,8 @@ class Controller{
     public function __construct()
     {
         $this->rotas = [
-            "cliente/cadastrar" => new RouteAction("Cliente", "cadastrar"),
-            "cliente/atualizar" => new RouteAction("Cliente", "atualizar")
+            "api/cliente/cadastrar" => new RouteAction("Cliente", "cadastrar"),
+            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar")
         ];
     }
 
@@ -17,6 +17,15 @@ class Controller{
             $acao->executar();
             return;
         }
-            echo 'Rota não existe!';
+
+        echo 'Rota não existe!';
+    }
+
+    public function addRota(
+        string $rota, 
+        RouteAction $metodo
+    ): void
+    {
+        $this->rotas[$rota] = $metodo;
     }
 }

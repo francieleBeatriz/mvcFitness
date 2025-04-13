@@ -6,10 +6,11 @@ class RouteAction{
 
     public function __construct($classe, $metodo){
         $this->classe = "controller\\".$classe;
-        $this->metodo=$metodo;
+        $this->metodo = $metodo;
     }
-   public function executar(){
+    
+    public function executar(){
         $objeto = new $this->classe();
         $objeto->{$this->metodo}();
-   }
+    }
 }

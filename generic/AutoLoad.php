@@ -1,5 +1,8 @@
 <?php
 spl_autoload_register(function ($class){
-   
-    include $class.".php";
+    $caminho = __DIR__ . '/../' . str_replace('\\', '/', $class) . '.php';
+
+    if (file_exists($caminho)) {
+        include $caminho;
+    }
 });
