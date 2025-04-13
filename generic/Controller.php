@@ -7,7 +7,8 @@ class Controller{
     {
         $this->rotas = [
             "api/cliente/cadastrar" => new RouteAction("Cliente", "cadastrar"),
-            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar")
+            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar"),
+            "api/cliente/autenticar" => new RouteAction("Cliente", "autenticar")
         ];
     }
 

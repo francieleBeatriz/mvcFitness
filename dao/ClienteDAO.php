@@ -5,19 +5,32 @@ use generic\MysqlFactory;
 
 class ClienteDAO extends MysqlFactory
 {
-    public function inserir($nome, $email)
+    public function inserir($nome, $email, $senha)
     {
-        $sql = "insert into usuarios (nome, email) values (:nome, :email)";
+
+
+        $sql = "insert into usuarios (nome, email, senha) values (:nome, :email, :senha)";
 
         return $this->banco->executar(
             $sql, 
             [
                 ":nome" => $nome,
-                ":email" => $email
+                ":email" => $email,
+                ":senha" => $senha
             ]
         );
     }
-    
+
+    public function autenticar($email)
+    {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        $resultado = $this->banco->executar($sql, [
+            ":email" => $email
+        ]);
+
+        return $resultado ? $resultado[0] : null; // Retorna o usuário ou null
+    }
+
     public function atualizar($id, $nome, $email)
     {
         $sql = "update usuarios set nome = :nome, email = :email where id = :id";
@@ -28,4 +41,5 @@ class ClienteDAO extends MysqlFactory
             ":email" => $email
         ]);
     }
+
 }
