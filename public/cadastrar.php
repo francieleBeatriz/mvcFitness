@@ -44,7 +44,11 @@ echo <<<HTML
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" 
         crossorigin="anonymous">
 
+        <script src="https://kit.fontawesome.com/e5aedbc5af.js" crossorigin="anonymous"></script>
+
         <link rel="stylesheet" href="/public/assets/css/global.css">
+
+        <script src=""></script>
 
         <style>
             .container {

@@ -17,6 +17,7 @@ class ClienteDAO extends MysqlFactory
             ]
         );
     }
+    
     public function atualizar($id, $nome, $email)
     {
         $sql = "update usuarios set nome = :nome, email = :email where id = :id";
