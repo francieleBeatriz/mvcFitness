@@ -2,10 +2,16 @@
 use views\builders\FormBuilder;
 
 $formBuilder = new FormBuilder(
-    action: '/api/login/', 
+    action: '/mvcFitness/api/cliente/cadastrar', 
     method: 'POST', 
     titulo: "Criar Conta", 
     descricaoPagina: "Crie sua conta e comece agora mesmo a participar dos desafios e acompanhar seu progresso."
+);
+$formBuilder->addInput(
+    type: 'text', 
+    name: 'nome', 
+    label: 'Nome', 
+    placeholder: 'Digite seu o seu nome aqui'
 );
 $formBuilder->addInput(
     type: 'email', 
@@ -21,7 +27,7 @@ $formBuilder->addInput(
 );
 $formBuilder->addInput(
     type: 'password', 
-    name: 'nova-senha', 
+    name: 'confirmarSenha', 
     label: 'Repetir senha', 
     placeholder: 'Digite a sua senha novamente aqui'
 );
@@ -29,6 +35,11 @@ $formBuilder->addButton(
     label: 'Entrar'
 );
 $form = $formBuilder->render();
+
+$mensagemSucesso = "";
+
+if(isset($_GET["sucesso"])) 
+    $mensagemSucesso = "O usuário foi cadastrado com sucesso!";
 
 echo <<<HTML
     <!DOCTYPE html>
@@ -46,7 +57,7 @@ echo <<<HTML
 
         <script src="https://kit.fontawesome.com/e5aedbc5af.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="/public/assets/css/global.css">
+        <link rel="stylesheet" href="/mvcFitness/public/assets/css/global.css">
 
         <script src=""></script>
 
@@ -59,7 +70,7 @@ echo <<<HTML
             .logo {
                 width: 80px;
                 height: 80px;
-                background-image: url('/public/assets/imgs/logo.jpg'); /* substitua pelo caminho correto da sua imagem */
+                background-image: url('/mvcFitness/public/assets/imgs/logo.jpg'); /* substitua pelo caminho correto da sua imagem */
                 background-repeat: no-repeat;
                 background-size: 180%; /* aumenta o zoom da imagem */
                 background-position: center; /* centraliza a parte visível */
@@ -71,6 +82,7 @@ echo <<<HTML
                 width: 50px;
             }
 
+            input[type="text"],
             input[type="email"],
             input[type="password"] {
                 width: 100%;
@@ -128,8 +140,9 @@ echo <<<HTML
             <div class="logo"></div>
             $form
             <div class="login-link">
-                Já criou uma conta? <a href="http://localhost/login/">Faça o login aqui</a>
+                Já criou uma conta? <a href="http://localhost/mvcFitness/login/">Faça o login aqui</a>
             </div>
+            <span>$mensagemSucesso</span>
         </div>
     </body>
     </html>

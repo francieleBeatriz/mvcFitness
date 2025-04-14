@@ -19,7 +19,13 @@ class ClienteService extends ClienteDAO
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
         $sucesso = parent::inserir($nome, $email, $senhaHash);
 
-        return $sucesso ? "Usuário cadastrado com sucesso!" : "Erro ao cadastrar o usuário";
+        if($sucesso)
+        {
+            header("Location: /mvcFitness/cadastrar?sucesso=1");
+            die();
+        }
+
+        return "Erro ao cadastrar o usuário";
     }
 
     public function autenticarCliente($email, $senha)
@@ -37,7 +43,8 @@ class ClienteService extends ClienteDAO
                 $_SESSION['nome'] = $usuario['nome'];
                 $_SESSION['email'] = $usuario['email'];
 
-                return "Login bem-sucedido!"; 
+                header("Location: /mvcFitness/home/");
+                die();
             } 
             else {
                 return "Email ou senha inválidos!";

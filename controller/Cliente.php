@@ -13,9 +13,9 @@ class Cliente
         $confirmarSenha = $_POST["confirmarSenha"] ?? null;
 
         $service = new ClienteService();
-        $resultado = $service->inserirCliente($nome,$email,$senha,$confirmarSenha);
+        $resultado = $service->inserirCliente($nome, $email, $senha, $confirmarSenha);
 
-        echo $resultado;
+        return $resultado;
     }
 
     public function autenticar()

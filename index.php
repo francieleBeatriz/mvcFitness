@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/mvcFitness/generic/AutoLoad.php";
+require_once __DIR__ . '/generic/AutoLoad.php';
 
 use generic\Controller;
 use generic\RouteAction;
@@ -10,13 +10,19 @@ $controller->addRota(
     "api/login/",
     new RouteAction("Cliente", "login")
 );
+
 $controller->addRota(
-    "login/",
+    "login",
     new RouteAction("AuthViewController", "login")
 );
 $controller->addRota(
-    "cadastrar/",
+    "cadastrar",
     new RouteAction("AuthViewController", "cadastrar")
+);
+
+$controller->addRota(
+    "home",
+    new RouteAction("HomeController", "desafios")
 );
 
 if(isset($_GET['rota']))

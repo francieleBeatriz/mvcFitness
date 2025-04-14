@@ -6,7 +6,7 @@ class AuthViewController
     private string $raiz;
 
     public function __construct() {
-        $this->raiz = $_SERVER["DOCUMENT_ROOT"];
+        $this->raiz = "{$_SERVER["DOCUMENT_ROOT"]}/mvcFitness/";
     }
 
     public function login()

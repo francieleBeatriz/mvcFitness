@@ -2,7 +2,7 @@
 use views\builders\FormBuilder;
 
 $formBuilder = new FormBuilder(
-    action: '/api/login/', 
+    action: '/mvcFitness/api/cliente/autenticar', 
     method: 'POST', 
     titulo: "Login", 
     descricaoPagina: "Transforme treino em desafio. Crie, participe e acompanhe sua evolução em uma plataforma feita para quem busca ir além."
@@ -39,7 +39,7 @@ echo <<<HTML
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" 
         crossorigin="anonymous">
 
-        <link rel="stylesheet" href="/public/assets/css/global.css">
+        <link rel="stylesheet" href="/mvcFitness/public/assets/css/global.css">
 
         <style>
             .container {
@@ -50,7 +50,7 @@ echo <<<HTML
             .logo {
                 width: 80px;
                 height: 80px;
-                background-image: url('/public/assets/imgs/logo.jpg'); /* substitua pelo caminho correto da sua imagem */
+                background-image: url('/mvcFitness/public/assets/imgs/logo.jpg'); /* substitua pelo caminho correto da sua imagem */
                 background-repeat: no-repeat;
                 background-size: 180%; /* aumenta o zoom da imagem */
                 background-position: center; /* centraliza a parte visível */
@@ -119,7 +119,7 @@ echo <<<HTML
             <div class="logo"></div>
             $form
             <div class="login-link">
-                Deseja criar uma conta? <a href="http://localhost/cadastrar/">Crie uma conta aqui</a>
+                Deseja criar uma conta? <a href="http://localhost/mvcFitness/cadastrar/">Crie uma conta aqui</a>
             </div>
         </div>
     </body>

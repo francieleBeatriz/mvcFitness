@@ -7,13 +7,17 @@ class MysqlSingleton{
     private static $instance = null;
 
     private $conexao = null;
-    private $dsn = 'mysql:host=localhost;dbname=fitness';
-    private $usuario = 'root';
-    private $senha = '';
 
     private function __construct(){
+        $host = getenv('DB_HOST') ?: 'localhost';
+        $dbname = getenv('DB_NAME') ?: 'fitness';
+        $usuario = getenv('DB_USER') ?: 'root';
+        $senha = getenv('DB_PASS') ?: '';
+
+        $dsn = "mysql:host=$host;dbname=$dbname";
+
         if($this->conexao == null){
-            $this->conexao = new PDO($this->dsn,$this->usuario,$this->senha);
+            $this->conexao = new PDO($dsn, $usuario, $senha);
         }
     }
 
