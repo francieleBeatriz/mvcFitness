@@ -20,8 +20,8 @@ class Cliente
 
     public function autenticar()
     {
-        $email = $_POST["email"] ?? null;
-        $senha = $_POST["senha"] ?? null;
+        $email = $_POST["email"];
+        $senha = $_POST["senha"];
 
         $service = new ClienteService();
         $usuario = $service->autenticarCliente($email, $senha);
@@ -30,13 +30,27 @@ class Cliente
     }
 
     public function atualizar(){
-        $id = $_POST["id"];
+        session_start();
+        $id = $_SESSION["id"];
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $senha = $_POST["senha"];
 
         $service = new ClienteService();
-        $service->atualizarDados($id,$nome,$email,$senha);
+        $resultado =  $service->atualizarDados($id,$nome,$email,$senha);
+
+        echo $resultado;
+    }
+
+    public function deletar()
+    {
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+
+        $service = new ClienteService();
+        $resultado = $service->deletarUsuario($email, $senha);
+
+        echo $resultado;
     }
 
 }

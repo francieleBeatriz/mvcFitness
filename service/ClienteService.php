@@ -16,7 +16,7 @@ class ClienteService extends ClienteDAO
             return "As senhas não coincidem!"; 
         }
 
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $senhaHash = password_hash($senha, PASSWORD_BCRYPT);
         $sucesso = parent::inserir($nome, $email, $senhaHash);
 
         if($sucesso)
@@ -37,12 +37,14 @@ class ClienteService extends ClienteDAO
         $usuario = $this->autenticar($email);
 
         try{
-            if ($usuario && password_verify($senha, $usuario['senha'])) {
+            if ($usuario && password_verify($senha, $usuario['senha'])) 
+            {
                 session_start();
-
+                $_SESSION['id'] = $usuario['id'];
                 $_SESSION['nome'] = $usuario['nome'];
                 $_SESSION['email'] = $usuario['email'];
 
+                return "Usuário logado com sucesso!";
                 header("Location: /mvcFitness/home/");
                 die();
             } 
@@ -55,8 +57,61 @@ class ClienteService extends ClienteDAO
         }
     }
 
-    public function atualizarDados($id, $nome, $email)
+    public function atualizarDados($id, $nome, $email, $senha)
     {
-        return parent::atualizar($id, $nome, $email);
+        if (!$id || !$nome || !$email || !$senha) {
+            return "Todos os campos são obrigatórios!";
+        }
+
+        $usuarioExistente = $this->buscarPorEmail($email);
+
+        if ($usuarioExistente && $usuarioExistente['id'] != $id) {
+            return "Este e-mail já está em uso por outro usuário!";
+        }
+
+        $usuarioAtual = $this->buscarPorId($id);
+
+        if (!$usuarioAtual) {
+            return "Usuário não encontrado!";
+        }
+
+        if ($usuarioAtual) {
+            $senhaIgual = password_verify($senha, $usuarioAtual['senha']);
+
+            if (
+                $usuarioAtual['nome'] === $nome && 
+                $usuarioAtual['email'] === $email && 
+                $senhaIgual
+            ) {
+                return "Os dados informados são iguais aos já cadastrados!";
+            }
+        }
+
+        $sucesso = parent::atualizar($id,$nome,$email,$senha);
+
+        return $sucesso !== false ? "Usuáruio atualizado com sucesso!" : "Erro ao atualizar o usuário!";
+    }
+
+    public function deletarUsuario($email, $senha)
+    {
+        if(!$email || !$senha){
+            return "Email e senha são obrigatórios!";
+        }
+
+        $usuario = $this->buscarPorEmail($email);
+
+        if(!$usuario){
+            return "Usuário não encontrado!";
+        }
+
+        if (!password_verify($senha, $usuario['senha'])) {
+            return "Senha incorreta!";
+        }
+
+        $sucesso = $this->deletar($email);
+
+        return $sucesso ? "Usuário deletado com sucesso!" : "Erro ao deletar o usuário!";
     }
 }
+
+    
