@@ -4,7 +4,7 @@ namespace controller;
 
 use service\ClienteService;
 
-class Cliente
+class ClienteController
 {
     public function cadastrar(){
         $nome = $_POST["nome"] ?? null;

@@ -11,9 +11,11 @@ class Controller{
             "api/cliente/autenticar" => new RouteAction("Cliente", "autenticar"),
             "api/cliente/deletar" => new RouteAction("Cliente", "deletar", true),
 
-            "api/desafio/criar" => new RouteAction("Desafio", "criarDesafio", true),
+            "api/desafio/registrar" => new RouteAction("Desafio", "criarDesafio", true),
             "api/desafio/atualizar" => new RouteAction("Desafio", "atualizarDesafio", true),
-            "api/desafio/deletar" => new RouteAction("Desafio", "deletarDesafio", true)
+            "api/desafio/deletar" => new RouteAction("Desafio", "deletarDesafio", true),
+
+            "api/progresso/registrar" => new RouteAction("Desafio", "criarDesafio", true),
         ];
     }
 

@@ -3,7 +3,7 @@ namespace controller;
 
 use service\DesafioService;
 
-class Desafio
+class DesafioController
 {
     public function criarDesafio()
     {
