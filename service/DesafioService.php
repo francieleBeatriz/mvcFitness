@@ -22,10 +22,6 @@ class DesafioService extends DesafioDAO
             return'Por favor, preencha todos os campos!';
         }
 
-        if (!$idUsuario) {
-            return 'Você precisa estar logado para atualizar o desafio.';
-        }
-
         $desafioExistente = $this->buscarPorId($idDesafio);
 
         if (!$desafioExistente) {

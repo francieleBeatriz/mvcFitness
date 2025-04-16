@@ -69,27 +69,9 @@ class ClienteService extends ClienteDAO
             return "Este e-mail já está em uso por outro usuário!";
         }
 
-        $usuarioAtual = $this->buscarPorId($id);
-
-        if (!$usuarioAtual) {
-            return "Usuário não encontrado!";
-        }
-
-        if ($usuarioAtual) {
-            $senhaIgual = password_verify($senha, $usuarioAtual['senha']);
-
-            if (
-                $usuarioAtual['nome'] === $nome && 
-                $usuarioAtual['email'] === $email && 
-                $senhaIgual
-            ) {
-                return "Os dados informados são iguais aos já cadastrados!";
-            }
-        }
-
         $sucesso = parent::atualizar($id,$nome,$email,$senha);
 
-        return $sucesso !== false ? "Usuáruio atualizado com sucesso!" : "Erro ao atualizar o usuário!";
+        return $sucesso !== false ? "Usuário atualizado com sucesso!" : "Erro ao atualizar o usuário!";
     }
 
     public function deletarUsuario($email, $senha)

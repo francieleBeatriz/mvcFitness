@@ -20,6 +20,8 @@ class Cliente
 
     public function autenticar()
     {
+        session_start();
+        
         $email = $_POST["email"];
         $senha = $_POST["senha"];
 
@@ -30,7 +32,6 @@ class Cliente
     }
 
     public function atualizar(){
-        session_start();
         $id = $_SESSION["id"];
         $nome = $_POST["nome"];
         $email = $_POST["email"];

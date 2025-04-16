@@ -50,16 +50,6 @@ class ClienteDAO extends MysqlFactory
         return $resultado ? $resultado[0] : null;
     }
 
-    public function buscarPorId($id)
-    {
-        $sql = "SELECT * FROM usuarios WHERE id = :id";
-        $resultado = $this->banco->executar($sql, [
-            ":id" => $id
-        ]);
-        return $resultado ? $resultado[0] : null;
-    }
-
-
     public function deletar($email){
         $sql = "DELETE FROM usuarios WHERE email = :email";
         return $this->banco->executar($sql, [

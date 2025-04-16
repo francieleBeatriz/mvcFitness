@@ -7,13 +7,13 @@ class Controller{
     {
         $this->rotas = [
             "api/cliente/cadastrar" => new RouteAction("Cliente", "cadastrar"),
-            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar"),
+            "api/cliente/atualizar" => new RouteAction("Cliente", "atualizar", true),
             "api/cliente/autenticar" => new RouteAction("Cliente", "autenticar"),
-            "api/cliente/deletar" => new RouteAction("Cliente", "deletar"),
+            "api/cliente/deletar" => new RouteAction("Cliente", "deletar", true),
 
-            "api/desafio/criar" => new RouteAction("Desafio", "criarDesafio"),
-            "api/desafio/atualizar" => new RouteAction("Desafio", "atualizarDesafio"),
-            "api/desafio/deletar" => new RouteAction("Desafio", "deletarDesafio")
+            "api/desafio/criar" => new RouteAction("Desafio", "criarDesafio", true),
+            "api/desafio/atualizar" => new RouteAction("Desafio", "atualizarDesafio", true),
+            "api/desafio/deletar" => new RouteAction("Desafio", "deletarDesafio", true)
         ];
     }
 
