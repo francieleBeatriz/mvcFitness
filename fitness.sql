@@ -17,15 +17,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Banco de dados: `fitness`
---
+CREATE DATABASE fitness;
 
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `desafios`
---
+USE fitness;
 
 CREATE TABLE `desafios` (
   `id` int(11) NOT NULL,

@@ -41,4 +41,20 @@ class DesafioDAO extends MysqlFactory
         $sql = "DELETE FROM desafios WHERE id = :id";
         return $this->banco->executar($sql, [":id" => $idDesafio]);
     }
+
+    public function buscarTodosOsDesafios()
+    {
+        $sql = "SELECT * FROM desafios";
+        return $this->banco->executar($sql);
+    }
+
+    public function buscarTodosDesafiosUsuario($idUsuario)
+    {
+        $sql = "SELECT * FROM desafios WHERE usuario_id = :usuario_id";
+        return $this->banco->executar($sql, [
+            ":usuario_id" => $idUsuario
+        ]);
+    }
+
+
 }

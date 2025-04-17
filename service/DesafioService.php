@@ -52,4 +52,18 @@ class DesafioService extends DesafioDAO
         $sucesso = $this->deletarDesafio($idDesafio);
             return $sucesso ? "Desafio deletado com sucesso!" : "Erro ao deletar desafio!";
         }
+
+    public function listarTodosOsDesafios()
+    {
+        $desafios = $this->buscarTodosOsDesafios();
+        return $desafios ?: "Nenhum desafio encontrado.";
+    }
+
+    public function listarDesafiosDoUsuario($idUsuario)
+    {
+        $desafios = $this->buscarTodosDesafiosUsuario($idUsuario);
+        return $desafios ?: "Nenhum desafio encontrado.";
+    }
+
+        
 }

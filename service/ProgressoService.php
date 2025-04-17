@@ -26,4 +26,17 @@ class ProgressoService extends ProgressoDAO{
 
         return $sucesso ? "Progresso registrado com sucesso!" : "Erro ao registrar progresso!";
     }
+
+    public function listarTodosOsProgressos()
+    {
+        $dados = $this->buscarTodosOsProgressos();
+        return $dados ?: "Nenhum progresso encontrado.";
+    }
+
+    public function listarProgressoDoUsuario($idUsuario)
+    {
+        $progresso = $this->buscaProgressosDoUsuario($idUsuario);
+        return $progresso ?: "Nenhum progresso encontrado.";
+    }
+
 }
