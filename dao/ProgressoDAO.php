@@ -40,4 +40,19 @@ class ProgressoDAO extends MysqlFactory{
 
         return $resultado ? $resultado[0] : null;
     }
+
+    public function buscarTodosOsProgressos()
+    {
+        $sql = "SELECT * FROM progresso";
+        return $this->banco->executar($sql);
+    }
+
+    public function buscaProgressosDoUsuario($idUsuario)
+    {
+        $sql = "SELECT * FROM progresso WHERE usuario_id = :usuario_id";
+        return $this->banco->executar($sql, [
+            ":usuario_id" => $idUsuario
+        ]);
+    }
+
 }
