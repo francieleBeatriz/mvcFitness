@@ -15,7 +15,7 @@ class Controller{
             "api/desafio/atualizar" => new RouteAction("Desafio", "atualizarDesafio", true),
             "api/desafio/deletar" => new RouteAction("Desafio", "deletarDesafio", true),
 
-            "api/progresso/registrar" => new RouteAction("Desafio", "criarDesafio", true),
+            "api/progresso/registrar" => new RouteAction("Progresso", "registrarProgresso", true),
         ];
     }
 

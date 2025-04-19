@@ -1,16 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-*{ box-sizing: border-box; font-family: 'Inter'; padding: 0; margin: 0; font-size: 12px;}
-
-body {
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #060a23;
-    color: white;
+    font-size: 12px;
+}
+  
+html{
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+body 
+{
+    margin: 0;
+    background-color: #060a23;
+    color: white;
     height: 100vh;
+    max-width: 600px;
+    width: 100%;
 }
 
 h1 {
@@ -30,17 +39,99 @@ label {
 }
 
 input[type="text"],
-textarea {
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea{
     width: 100%;
     padding: 12px;
-    border: 2px solid #ff7f50;
-    border-radius: 10px;
-    background-color: transparent;
-    color: #fff;
-    font-size: 14px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background-image: 
+        linear-gradient(#060a23, #060a23), /* fundo interno */
+        linear-gradient(to right, #FF2E92 0%, #FF8C1A 50%, #6B1EFF 100%); /* borda gradiente */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    color: white;
+    outline: none;
+    resize: none;
 }
 
-input::placeholder,
-textarea::placeholder {
+input::placeholder {
     color: #aaa;
+}
+
+.btn-salvar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #ff4f68;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-salvar:hover {
+    background-color: #e13c58;
+}
+
+/* Estilização do Menu */
+.menu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+  
+.btn-cadastrar {
+    background-color: #ff4f68;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+    background-color: #e13c58;
+}
+
+.user-icon{
+    background: linear-gradient(to right, #FF2E92 0%, #FF8C1A 50%, #6B1EFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 16px; /* ou o tamanho que quiser */
+}
+
+.user-icon {
+    font-size: 18px;
+}
+
+.user-name {
+    font-size: 12px;
+    color: #e13c58;
+}
+
+/* Estilização de outras páginas */
+.title {
+    font-size: 36px;
+    color: #FF8C1A;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.subtitle {
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 30px;
 }

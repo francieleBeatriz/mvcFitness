@@ -4,7 +4,7 @@ namespace controller;
 
 use service\ClienteService;
 
-class ClienteController
+class Cliente
 {
     public function cadastrar(){
         $nome = $_POST["nome"] ?? null;
@@ -19,9 +19,7 @@ class ClienteController
     }
 
     public function autenticar()
-    {
-        session_start();
-        
+    {   
         $email = $_POST["email"];
         $senha = $_POST["senha"];
 
@@ -35,7 +33,7 @@ class ClienteController
         $id = $_SESSION["id"];
         $nome = $_POST["nome"];
         $email = $_POST["email"];
-        $senha = $_POST["senha"];
+        $senha = $_POST["senha"] ?? "";
 
         $service = new ClienteService();
         $resultado =  $service->atualizarDados($id,$nome,$email,$senha);

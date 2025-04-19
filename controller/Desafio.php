@@ -3,7 +3,7 @@ namespace controller;
 
 use service\DesafioService;
 
-class DesafioController
+class Desafio
 {
     public function criarDesafio()
     {
@@ -33,9 +33,8 @@ class DesafioController
     }
     public function deletarDesafio(){
         $idUsuario = $_SESSION['id'];
-  
-        $idDesafio = $_POST['id'];
-
+        $idDesafio = $_GET['desafio_id'];
+        
         $service = new DesafioService();
         $resultado = $service->deletar($idDesafio, $idUsuario);
     

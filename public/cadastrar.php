@@ -1,4 +1,6 @@
 <?php
+session_destroy();  
+
 use views\builders\FormBuilder;
 
 $formBuilder = new FormBuilder(
@@ -80,26 +82,6 @@ echo <<<HTML
 
             .logo img {
                 width: 50px;
-            }
-
-            input[type="text"],
-            input[type="email"],
-            input[type="password"] {
-                width: 100%;
-                padding: 12px;
-                border: 2px solid transparent;
-                border-radius: 8px;
-                background-image: 
-                    linear-gradient(#060a23, #060a23), /* fundo interno */
-                    linear-gradient(to right, #FF2E92 0%, #FF8C1A 50%, #6B1EFF 100%); /* borda gradiente */
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-                color: white;
-                outline: none;
-            }
-
-            input::placeholder {
-                color: #aaa;
             }
 
             button {

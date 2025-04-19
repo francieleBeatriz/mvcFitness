@@ -32,14 +32,27 @@ class ClienteDAO extends MysqlFactory
     public function atualizar($id, $nome, $email, $senha)
     {
         $senhaHash = password_hash($senha, PASSWORD_BCRYPT);
-        $sql = "update usuarios set nome = :nome, email = :email, senha = :senha where id = :id";
 
-        return $this->banco->executar($sql, [
+        $params = [
             ":id" => $id,
             ":nome" => $nome,
             ":email" => $email,
             ":senha" => $senhaHash
-        ]);
+        ];
+        $senha = ", senha = :senha";
+
+        if(!$senha){
+            $params = [
+                ":id" => $id,
+                ":nome" => $nome,
+                ":email" => $email
+            ];
+            $senha = "";
+        }
+        
+        $sql = "update usuarios set nome = :nome, email = :email$senha where id = :id";
+
+        return $this->banco->executar($sql, $params);
     }
 
     public function buscarPorEmail($email){

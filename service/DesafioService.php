@@ -8,33 +8,50 @@ class DesafioService extends DesafioDAO
     public function criar($idUsuario,$nome,$descricao)
     {
         if(!$nome || !$descricao){
-            return'Por favor, preencha todos os campos!';
+            header("Location: /mvcFitness/home/cadastrar?erro=Por favor, preencha todos os campos!");
+            exit;
         }
 
         $sucesso = $this->inserir($idUsuario,$nome,$descricao);
 
-        return $sucesso ? "Desafio criado com sucesso!" : "Erro ao criar desafio!";
+        if(!$sucesso)   
+        {
+            header("Location: /mvcFitness/home/cadastrar?erro=Erro ao criar desafio!");
+            exit;
+        }
+
+        header("Location: /mvcFitness/home/cadastrar?sucesso=Desafio criado com sucesso!");
+        exit;
     }
 
     public function atualizar($idUsuario,$idDesafio,$nome,$descricao)
     {
         if(!$nome || !$descricao){
-            return'Por favor, preencha todos os campos!';
+            header("Location: /mvcFitness/home/cadastrar?erro=Por favor, preencha todos os campos!");
+            exit;
         }
 
         $desafioExistente = $this->buscarPorId($idDesafio);
 
         if (!$desafioExistente) {
-            return 'Desafio não encontrado!';
+            header("Location: /mvcFitness/home/cadastrar?erro=Desafio não encontrado!");
+            exit;
         }
 
         if ($desafioExistente['usuario_id'] != $idUsuario) {
-            return 'Você não tem permissão para atualizar este desafio!';
+            header("Location: /mvcFitness/home/cadastrar?erro=Você não tem permissão para atualizar este desafio!");
+            exit;
         }
 
         $sucesso = $this->atualizarDesafio($idDesafio,$nome,$descricao);
 
-        return $sucesso ? "Desafio atualizado com sucesso!" : "Erro ao atualizar desafio!";
+        if(!$sucesso){
+            header("Location: /mvcFitness/home/cadastrar?erro=Erro ao atualizar desafio!");
+            exit;
+        }
+
+        header("Location: /mvcFitness/home/cadastrar?sucesso=Desafio atualizado com sucesso!&desafio_id=$idDesafio");
+        exit;
     }
 
     public function deletar($idDesafio, $idUsuario)
@@ -42,21 +59,31 @@ class DesafioService extends DesafioDAO
         $desafio = $this->buscarPorId($idDesafio);
 
         if (!$desafio) {
-            return "Desafio não encontrado!";
+            header("Location: /mvcFitness/home?erro=Desafio não encontrado!");
+            exit;
         }
 
         if ($desafio['usuario_id'] != $idUsuario) {
-            return "Você não tem permissão para deletar este desafio!";
+            header("Location: /mvcFitness/home?erro=Você não tem permissão para deletar este desafio!");
+            exit;
         }
 
         $sucesso = $this->deletarDesafio($idDesafio);
-            return $sucesso ? "Desafio deletado com sucesso!" : "Erro ao deletar desafio!";
+
+        if(!$sucesso)
+        {
+            header("Location: /mvcFitness/home?erro=Erro ao deletar desafio!");
+            exit;
         }
+
+        header("Location: /mvcFitness/home?sucesso=Desafio deletado com sucesso!");
+        exit;
+    }
 
     public function listarTodosOsDesafios()
     {
         $desafios = $this->buscarTodosOsDesafios();
-        return $desafios ?: "Nenhum desafio encontrado.";
+        return $desafios ?: "";
     }
 
     public function listarDesafiosDoUsuario($idUsuario)
@@ -65,5 +92,8 @@ class DesafioService extends DesafioDAO
         return $desafios ?: "Nenhum desafio encontrado.";
     }
 
-        
+    public function buscarPorId($idDesafio)
+    {
+        return parent::buscarPorId($idDesafio);
+    }
 }

@@ -8,14 +8,15 @@ class ProgressoService extends ProgressoDAO{
     public function registrar($usuarioId, $desafioId, $progresso)
     {
         if (!$desafioId || $progresso === null) {
-            return 'Todos os campos são obrigatórios!';
+            header("Location: /mvcFitness/home/progressos/cadastrar?erro=Todos os campos são obrigatórios!");
+            exit;
         }
 
         if ($progresso < 0 || $progresso > 100) {
-            return 'O progresso deve estar entre 0 e 100!';
+            header("Location: /mvcFitness/home/progressos/cadastrar?erro=Progresso deve estar entre 0 e 100!");
+            exit;
         }
 
-        // Verifica se já existe progresso registrado
         $registroExistente = $this->buscarPorUsuarioDesafio($usuarioId, $desafioId);
 
         if ($registroExistente) {
@@ -24,7 +25,13 @@ class ProgressoService extends ProgressoDAO{
             $sucesso = $this->inserirProgresso($usuarioId, $desafioId, $progresso);
         }
 
-        return $sucesso ? "Progresso registrado com sucesso!" : "Erro ao registrar progresso!";
+        if(!$sucesso) {
+            header("Location: /mvcFitness/home/progressos/cadastrar?erro=Erro ao registrar progresso!");
+            exit;
+        }
+
+        header("Location: /mvcFitness/home/progressos/cadastrar?sucesso=Progresso registrado com sucesso!");
+        exit;
     }
 
     public function listarTodosOsProgressos()
@@ -33,10 +40,10 @@ class ProgressoService extends ProgressoDAO{
         return $dados ?: "Nenhum progresso encontrado.";
     }
 
-    public function listarProgressoDoUsuario($idUsuario)
+    public function listarProgressoPorDesafio($desafioId)
     {
-        $progresso = $this->buscaProgressosDoUsuario($idUsuario);
-        return $progresso ?: "Nenhum progresso encontrado.";
+        $progresso = parent::listarProgressoPorDesafio($desafioId);
+        return $progresso ? $progresso : "";
     }
 
 }

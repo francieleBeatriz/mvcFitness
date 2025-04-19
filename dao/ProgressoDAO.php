@@ -30,15 +30,18 @@ class ProgressoDAO extends MysqlFactory{
 
     public function buscarPorUsuarioDesafio($usuarioId, $desafioId)
     {
-        $sql = "SELECT * FROM progresso 
-                WHERE usuario_id = :usuario_id AND desafio_id = :desafio_id";
+        $sql = "SELECT u.id, u.nome, p.id as progresso_id, p.progresso 
+                FROM progresso p
+                JOIN usuarios u
+                    ON p.usuario_id = u.id
+                WHERE p.usuario_id = :usuario_id AND p.desafio_id = :desafio_id";
 
         $resultado = $this->banco->executar($sql, [
             ":usuario_id" => $usuarioId,
             ":desafio_id" => $desafioId
         ]);
 
-        return $resultado ? $resultado[0] : null;
+        return $resultado ? $resultado : null;
     }
 
     public function buscarTodosOsProgressos()
@@ -47,11 +50,14 @@ class ProgressoDAO extends MysqlFactory{
         return $this->banco->executar($sql);
     }
 
-    public function buscaProgressosDoUsuario($idUsuario)
+    public function listarProgressoPorDesafio($desafioId)
     {
-        $sql = "SELECT * FROM progresso WHERE usuario_id = :usuario_id";
+        $sql = "SELECT u.id, u.nome, p.id as progresso_id, p.progresso  FROM progresso p
+                JOIN usuarios u
+                    ON p.usuario_id = u.id
+                WHERE desafio_id = :desafio_id";
         return $this->banco->executar($sql, [
-            ":usuario_id" => $idUsuario
+            ":desafio_id" => $desafioId
         ]);
     }
 

@@ -33,7 +33,7 @@ class DesafioDAO extends MysqlFactory
     {
         $sql = "SELECT * FROM desafios WHERE id = :id";
         $resultado = $this->banco->executar($sql, [":id" => $idDesafio]);
-    
+ 
         return $resultado ? $resultado[0] : null;
     }
 
@@ -44,13 +44,38 @@ class DesafioDAO extends MysqlFactory
 
     public function buscarTodosOsDesafios()
     {
-        $sql = "SELECT * FROM desafios";
+        $sql = <<<SQL
+            SELECT 
+                d.id, 
+                d.nome, 
+                d.descricao, 
+                d.usuario_id,
+                ROUND(COALESCE(AVG(p.progresso), 0), 2) AS progresso
+            FROM desafios d
+            LEFT JOIN progresso p
+                ON p.desafio_id = d.id
+            GROUP BY d.id, d.nome, d.descricao
+        SQL;
         return $this->banco->executar($sql);
     }
 
     public function buscarTodosDesafiosUsuario($idUsuario)
     {
-        $sql = "SELECT * FROM desafios WHERE usuario_id = :usuario_id";
+        $sql = <<<SQL
+            SELECT 
+                d.id, 
+                d.nome, 
+                d.descricao, 
+                d.usuario_id,
+                ROUND(COALESCE(AVG(p.progresso), 0), 2) AS progresso
+            FROM desafios d
+            LEFT JOIN progresso p
+                ON p.desafio_id = d.id
+            WHERE d.usuario_id = :usuario_id
+                OR p.usuario_id = :usuario_id
+            GROUP BY d.id, d.nome, d.descricao
+        SQL;
+
         return $this->banco->executar($sql, [
             ":usuario_id" => $idUsuario
         ]);

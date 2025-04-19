@@ -1,11 +1,22 @@
 <?php
 use views\builders\FormBuilder;
 
+session_destroy();  
+
+$feedback = [];
+if(isset($_GET["erro"]))
+    $feedback = [
+        $_GET["erro"],
+        "padding: 10px; background-color: crimson; border-radius: 5px; font-weight: 600; margin-top: 5px; margin-bottom: 5px;",
+        "<i class='fa-solid fa-triangle-exclamation me-2'></i>"
+    ];
+
 $formBuilder = new FormBuilder(
     action: '/mvcFitness/api/cliente/autenticar', 
     method: 'POST', 
     titulo: "Login", 
-    descricaoPagina: "Transforme treino em desafio. Crie, participe e acompanhe sua evolução em uma plataforma feita para quem busca ir além."
+    descricaoPagina: "Transforme treino em desafio. Crie, participe e acompanhe sua evolução em uma plataforma feita para quem busca ir além.",
+    feedback: $feedback
 );
 $formBuilder->addInput(
     type: 'email', 
@@ -17,7 +28,7 @@ $formBuilder->addInput(
     type: 'password', 
     name: 'senha', 
     label: 'Senha', 
-    placeholder: 'Digite seu e-mail aqui'
+    placeholder: 'Digite sua senha aqui'
 );
 $formBuilder->addButton(
     label: 'Entrar'
@@ -38,6 +49,8 @@ echo <<<HTML
         rel="stylesheet" 
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" 
         crossorigin="anonymous">
+
+        <script src="https://kit.fontawesome.com/e5aedbc5af.js" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="/mvcFitness/public/assets/css/global.css">
 
@@ -79,23 +92,6 @@ echo <<<HTML
 
             input::placeholder {
                 color: #aaa;
-            }
-
-            button {
-                width: 100%;
-                padding: 12px;
-                margin-top: 10px;
-                background-color: #ff4f68;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            button:hover {
-                background-color: #e13c58;
             }
 
             .login-link {

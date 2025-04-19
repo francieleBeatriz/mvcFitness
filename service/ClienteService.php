@@ -22,7 +22,7 @@ class ClienteService extends ClienteDAO
         if($sucesso)
         {
             header("Location: /mvcFitness/cadastrar?sucesso=1");
-            die();
+            exit;
         }
 
         return "Erro ao cadastrar o usuário";
@@ -36,63 +36,87 @@ class ClienteService extends ClienteDAO
 
         $usuario = $this->autenticar($email);
 
-        try{
-            if ($usuario && password_verify($senha, $usuario['senha'])) 
-            {
-                session_start();
+        try {
+            if ($usuario && password_verify($senha, $usuario['senha'])) {
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+
                 $_SESSION['id'] = $usuario['id'];
                 $_SESSION['nome'] = $usuario['nome'];
                 $_SESSION['email'] = $usuario['email'];
 
-                return "Usuário logado com sucesso!";
-                header("Location: /mvcFitness/home/");
-                die();
-            } 
-            else {
-                return "Email ou senha inválidos!";
+                header("Location: /mvcFitness/home");
+                exit;
+            } else {
+                header("Location: /mvcFitness/login?erro=Email ou senha inválidos!");
+                exit;
             }
-        }
-        catch(Exception $e){
-            return 'houve um problema ao realizar a autenticação!';
+        } catch(Exception $e){
+            return 'Houve um problema ao realizar a autenticação!';
         }
     }
 
-    public function atualizarDados($id, $nome, $email, $senha)
+    public function atualizarDados($id, $nome, $email, $senha = "")
     {
-        if (!$id || !$nome || !$email || !$senha) {
-            return "Todos os campos são obrigatórios!";
+        if (!$id || !$nome || !$email) {
+            header("Location: /mvcFitness/perfil?erro=Todos os campos são obrigatórios!");
+            exit;
         }
 
         $usuarioExistente = $this->buscarPorEmail($email);
 
         if ($usuarioExistente && $usuarioExistente['id'] != $id) {
-            return "Este e-mail já está em uso por outro usuário!";
+            header("Location: /mvcFitness/perfil?erro=Este e-mail já está em uso por outro usuário!");
+            exit;
         }
 
         $sucesso = parent::atualizar($id,$nome,$email,$senha);
 
-        return $sucesso !== false ? "Usuário atualizado com sucesso!" : "Erro ao atualizar o usuário!";
+        if(!$sucesso)
+        {
+            header("Location: /mvcFitness/perfil?erro=Erro ao atualizar o usuário!");
+            exit;
+        }
+
+        header("Location: /mvcFitness/perfil?sucesso=Usuário atualizado com sucesso!");
+        exit;
     }
 
     public function deletarUsuario($email, $senha)
     {
         if(!$email || !$senha){
-            return "Email e senha são obrigatórios!";
+            header("Location: /mvcFitness/perfil/excluir?erro=Email e senha são obrigatórios!");
+            exit;
         }
 
         $usuario = $this->buscarPorEmail($email);
 
         if(!$usuario){
-            return "Usuário não encontrado!";
+            header("Location: /mvcFitness/perfil/excluir?erro=Usuário não encontrado!");
+            exit;
         }
 
         if (!password_verify($senha, $usuario['senha'])) {
-            return "Senha incorreta!";
+            header("Location: /mvcFitness/perfil/excluir?erro=Senha incorreta!");
+            exit;
         }
 
         $sucesso = $this->deletar($email);
 
-        return $sucesso ? "Usuário deletado com sucesso!" : "Erro ao deletar o usuário!";
+        if(!$sucesso)
+        {
+            header("Location: /mvcFitness/perfil?erro=Erro ao deletar o usuário!");
+            exit;
+        }
+
+        header("Location: /mvcFitness/login");
+        exit;
+    }
+
+    public function buscarPorEmail($email)
+    {
+        return parent::buscarPorEmail($email);
     }
 }
 
