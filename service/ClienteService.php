@@ -79,6 +79,8 @@ class ClienteService extends ClienteDAO
             exit;
         }
 
+        $_SESSION["nome"] = $nome;
+        $_SESSION["email"] = $email;
         header("Location: /mvcFitness/perfil?sucesso=Usuário atualizado com sucesso!");
         exit;
     }

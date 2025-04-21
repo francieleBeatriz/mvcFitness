@@ -22,7 +22,8 @@ class Progresso{
     {
         $template = new DefaultTemplate();
         $template->layout("/public/progressos.php",[
-            "rota" => "/mvcFitness/home/progressos/cadastrar"
+            "rota" => "/mvcFitness/home/progressos/cadastrar",
+            "tituloBotao" => "Cadastrar Progresso"
         ]);
     }
 

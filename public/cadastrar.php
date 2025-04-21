@@ -2,12 +2,26 @@
 session_destroy();  
 
 use views\builders\FormBuilder;
+$feedback = [];
+if(isset($_GET["sucesso"]))
+    $feedback = [
+        "O usuário foi cadastrado com sucesso!",
+        "padding: 10px; background-color: darkgreen; border-radius: 5px; font-weight: 600; margin-top: 5px; margin-bottom: 5px;",
+        "<i class='fa-solid fa-check me-2'></i>"
+    ];
+else if(isset($_GET["erro"]))
+    $feedback = [
+        "Houve um erro ao realizar o cadastro!",
+        "padding: 10px; background-color: crimson; border-radius: 5px; font-weight: 600; margin-top: 5px; margin-bottom: 5px;",
+        "<i class='fa-solid fa-triangle-exclamation me-2'></i>"
+    ];
 
 $formBuilder = new FormBuilder(
     action: '/mvcFitness/api/cliente/cadastrar', 
     method: 'POST', 
     titulo: "Criar Conta", 
-    descricaoPagina: "Crie sua conta e comece agora mesmo a participar dos desafios e acompanhar seu progresso."
+    descricaoPagina: "Crie sua conta e comece agora mesmo a participar dos desafios e acompanhar seu progresso.",
+    feedback: $feedback
 );
 $formBuilder->addInput(
     type: 'text', 
@@ -37,11 +51,6 @@ $formBuilder->addButton(
     label: 'Entrar'
 );
 $form = $formBuilder->render();
-
-$mensagemSucesso = "";
-
-if(isset($_GET["sucesso"])) 
-    $mensagemSucesso = "O usuário foi cadastrado com sucesso!";
 
 echo <<<HTML
     <!DOCTYPE html>
@@ -122,9 +131,8 @@ echo <<<HTML
             <div class="logo"></div>
             $form
             <div class="login-link">
-                Já criou uma conta? <a href="http://localhost/mvcFitness/login/">Faça o login aqui</a>
+                Já criou uma conta? <a href="http://localhost/mvcFitness/login">Faça o login aqui</a>
             </div>
-            <span>$mensagemSucesso</span>
         </div>
     </body>
     </html>

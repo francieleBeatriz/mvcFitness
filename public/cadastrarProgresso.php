@@ -19,7 +19,8 @@ else if(isset($_GET["erro"]))
     ];
 
 $progressoService = new ProgressoService();
-$progresso = $progressoService->buscarPorUsuarioDesafio($_SESSION["id"], $_SESSION["desafio_id"])[0];
+$progresso = $progressoService->buscarPorUsuarioDesafio($_SESSION["id"], $_SESSION["desafio_id"]);
+$progresso = $progresso ? $progresso[0] : [];
 
 $tituloPagina = "Cadastrar Progresso";
 $progressoTexto = "";

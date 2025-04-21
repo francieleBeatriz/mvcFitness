@@ -46,7 +46,7 @@ $formBuilder->addInput(
     type: 'password', 
     name: 'senha', 
     label: 'Nova senha', 
-    placeholder: 'Digite aqui a sua nova senha',
+    placeholder: 'Digite aqui a sua nova senha (opcional)',
     value: ""
 );
 $formBuilder->addButton(
@@ -56,6 +56,10 @@ $form = $formBuilder->render();
 
 echo <<<HTML
     $form
+    <button class="btn-salvar" style="border: 2px solid DeepSkyBlue; background-color: transparent; color: DeepSkyBlue;" onclick="window.location.href = '/mvcFitness/login'">
+        <i class="fa-solid fa-right-from-bracket me-2"></i>
+        Sair
+    </button>
     <button class="btn-salvar" style="border: 2px solid red; background-color: transparent; color: red;" onclick="window.location.href = '/mvcFitness/perfil/excluir'">
         <i class="fa-solid fa-trash me-2"></i>
         Excluir Conta

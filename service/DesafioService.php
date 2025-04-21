@@ -89,7 +89,7 @@ class DesafioService extends DesafioDAO
     public function listarDesafiosDoUsuario($idUsuario)
     {
         $desafios = $this->buscarTodosDesafiosUsuario($idUsuario);
-        return $desafios ?: "Nenhum desafio encontrado.";
+        return $desafios ?: [];
     }
 
     public function buscarPorId($idDesafio)

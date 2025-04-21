@@ -115,7 +115,7 @@ echo <<<HTML
             <div class="logo"></div>
             $form
             <div class="login-link">
-                Deseja criar uma conta? <a href="http://localhost/mvcFitness/cadastrar/">Crie uma conta aqui</a>
+                Deseja criar uma conta? <a href="http://localhost/mvcFitness/cadastrar">Crie uma conta aqui</a>
             </div>
         </div>
     </body>

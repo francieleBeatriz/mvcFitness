@@ -14,11 +14,13 @@ class DefaultTemplate
         
         $button = "";
         
+        $tituloBotao = isset($params['tituloBotao']) ? $params['tituloBotao'] : "Cadastrar";
+
         if ($params)
         {
             $button = <<<HTML
                 <button class="btn-cadastrar" onclick="window.location.href = '{$params['rota']}'">
-                    <i class="fa-solid fa-plus me-2" style="font-size: 16px;"></i> Cadastrar
+                    <i class="fa-solid fa-plus me-2" style="font-size: 16px;"></i> {$tituloBotao}
                 </button>           
             HTML;
         }

@@ -10,7 +10,8 @@ class HomeController
     {
         $template = new DefaultTemplate();
         $template->layout("/public/desafios.php", [
-            "rota" => "/mvcFitness/home/cadastrar"
+            "rota" => "/mvcFitness/home/cadastrar",
+            "tituloBotao" => "Cadastrar Desafio"
         ]);
     }
 
